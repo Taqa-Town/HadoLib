@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HadoLib.Controls">
+
+    <Style TargetType="local:CodeBlock">
+        <Setter Property="Background" Value="{ThemeResource LayerOnMicaBaseAltFillColorDefault}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="ButtonBackground" Value="Transparent" />
+        <Setter Property="ButtonForeground" Value="White" />
+        <Setter Property="TitleBackground" Value="{ThemeResource LayerOnMicaBaseAltFillColorDefault}" />
+        <Setter Property="TitleForeground" Value="White" />
+        <Setter Property="Title" Value="Title" />
+        <Setter Property="MainBackground" Value="{ThemeResource LayerOnMicaBaseAltFillColorDefault}" />
+        <Setter Property="MainForeground" Value="White" />
+
+
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CodeBlock">
+
+                    <Grid
+                     Width="{TemplateBinding Width}"
+                     Height="{TemplateBinding Height}"
+                     Background="{TemplateBinding Background}"
+                     BorderBrush="{TemplateBinding BorderBrush}"
+                     BorderThickness="{TemplateBinding BorderThickness}"
+                     CornerRadius="{TemplateBinding CornerRadius}"
+                     RowDefinitions="20*, 80*">
+
+                        <Grid
+                         Grid.Row="0"
+                         Background="{TemplateBinding TitleBackground}"
+                         ColumnDefinitions="90*, 10*">
+                            <TextBlock
+                             x:Name="Part_Title"
+                             Grid.Column="0"
+                             Padding="10,0,0,10"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Foreground="{TemplateBinding TitleForeground}"
+                             HorizontalTextAlignment="Left"
+                             Text="{TemplateBinding Title}" />
+                            <Button
+                             x:Name="Part_CopyButton"
+                             Grid.Column="1"
+                             Width="Auto"
+                             Height="Auto"
+                             VerticalAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             Background="{TemplateBinding ButtonBackground}"
+                             BorderBrush="Transparent"
+                             Content="🗎"
+                             CornerRadius="0"
+                             Foreground="{TemplateBinding ButtonForeground}">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent" />
+                                        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent" />
+                                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+                                        <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent" />
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
+                        <ScrollViewer
+                         Grid.Row="1"
+                         Padding="7"
+                         Background="{TemplateBinding MainBackground}"
+                         HorizontalScrollBarVisibility="Disabled"
+                         VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                             x:Name="Part_TextSource"
+                             Width="Auto"
+                             Height="Auto"
+                             Padding="5"
+                             Foreground="{TemplateBinding MainForeground}"
+                             TextWrapping="Wrap" />
+                        </ScrollViewer>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

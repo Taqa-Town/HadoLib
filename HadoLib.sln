@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35731.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HadoLib", "HadoLib.csproj", "{E7019E8A-E6E6-48B5-BC37-ACB5CA4658DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "..\TestApp\TestApp.csproj", "{6DC8C852-2BCC-4EFF-A539-73A482829E2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7019E8A-E6E6-48B5-BC37-ACB5CA4658DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7019E8A-E6E6-48B5-BC37-ACB5CA4658DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7019E8A-E6E6-48B5-BC37-ACB5CA4658DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7019E8A-E6E6-48B5-BC37-ACB5CA4658DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC8C852-2BCC-4EFF-A539-73A482829E2F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{6DC8C852-2BCC-4EFF-A539-73A482829E2F}.Debug|Any CPU.Build.0 = Debug|x64
+		{6DC8C852-2BCC-4EFF-A539-73A482829E2F}.Debug|Any CPU.Deploy.0 = Debug|x64
+		{6DC8C852-2BCC-4EFF-A539-73A482829E2F}.Release|Any CPU.ActiveCfg = Release|x64
+		{6DC8C852-2BCC-4EFF-A539-73A482829E2F}.Release|Any CPU.Build.0 = Release|x64
+		{6DC8C852-2BCC-4EFF-A539-73A482829E2F}.Release|Any CPU.Deploy.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42D758CA-CA03-4142-B7B5-A81D853F9633}
+	EndGlobalSection
+EndGlobal
