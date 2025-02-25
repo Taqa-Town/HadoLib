@@ -6,7 +6,11 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Media;
 using System;
+using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
 using Windows.UI;
 
 namespace HadoLib.Controls;
@@ -15,6 +19,7 @@ public sealed partial class CodeBlock : Control
 {
     private Button _copyButton;
     private TextBlock TextSource;
+    private TokenizingModel _tokenizingModel = GetTokenizingModel();
     private readonly DispatcherTimer _timer = new();
     private readonly string _copyIcon = "🗎";
     private readonly string _checkIcon = "✓";
@@ -24,9 +29,20 @@ public sealed partial class CodeBlock : Control
         this.DefaultStyleKey = typeof(CodeBlock);
     }
 
+    public static TokenizingModel GetTokenizingModel()
+    {
+        var source = new Uri(@"ms-appx:///Tokenizer/CSharpSyntax.json");
+        var result = StorageFile.GetFileFromApplicationUriAsync(source);
+        var file = result.AsTask().Result;
+        string json = File.ReadAllText(file.Path);
+        LanguageSyntaxModel syntaxModel = JsonSerializer.Deserialize<LanguageSyntaxModel>(json);
+        return new TokenizingModel(syntaxModel);
+    }
+
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
+        
         _copyButton = (Button)GetTemplateChild("Part_CopyButton");
         TextSource = (TextBlock)GetTemplateChild("Part_TextSource");
         if (_copyButton is not null)
@@ -64,7 +80,7 @@ public sealed partial class CodeBlock : Control
         set { SetValue(TitleProperty, value); }
     }
 
-    public static readonly DependencyProperty TitleProperty =
+    public static readonly DependencyProperty TitleProperty = 
         DependencyProperty.Register(nameof(Title), typeof(string), typeof(CodeBlock), new PropertyMetadata(string.Empty));
 
 
@@ -84,6 +100,29 @@ public sealed partial class CodeBlock : Control
             return;
         if (control.TextSource is not null && control.ColorizeText is true)
             ColorTheText(control);
+    }
+
+
+
+    public string JsonSource
+    {
+        get { return (string)GetValue(JsonSourceProperty); }
+        set { SetValue(JsonSourceProperty, value); }
+    }
+    public static readonly DependencyProperty JsonSourceProperty =
+        DependencyProperty.Register(nameof(JsonSource), typeof(string), typeof(CodeBlock), new PropertyMetadata(string.Empty, OnSourceChanged));
+
+    private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not CodeBlock control)
+            return;
+        var value = e.NewValue.ToString();
+        var source = new Uri(value);
+        var result = StorageFile.GetFileFromApplicationUriAsync(source);
+        var file = result.AsTask().Result;
+        string json = File.ReadAllText(file.Path);
+        LanguageSyntaxModel syntaxModel = JsonSerializer.Deserialize<LanguageSyntaxModel>(json);
+        control._tokenizingModel = new TokenizingModel(syntaxModel);
     }
 
     public Brush TitleBackground
@@ -177,21 +216,21 @@ public sealed partial class CodeBlock : Control
 
     private static void ColorTheText(CodeBlock control)
     {
-        //var tokens = TokenDefinition.Tokenize(control.Text, _tokenDefinitions);
-        //control.TextSource.Inlines.Clear();
-        //foreach (var token in tokens)
-        //{
-        //    string text;
-        //    if (token.Text.Contains('\n'))
-        //        text = "\n";
-        //    else
-        //        text = token.Text;
-        //    control.TextSource.Inlines.Add(new Run
-        //    {
-        //        Text = text,
-        //        Foreground = _tokenColors.TryGetValue(token.Type, out var color) ? color : new SolidColorBrush(Colors.Black)
-        //    });
-        //}
+        var tokens = control._tokenizingModel.Tokenize(control.Text);
+        control.TextSource.Inlines.Clear();
+        foreach (var token in tokens)
+        {
+            string text;
+            if (token.Text.Contains('\n'))
+                text = "\n";
+            else
+                text = token.Text;
+            control.TextSource.Inlines.Add(new Run
+            {
+                Text = text,
+                Foreground = token.Color
+            });
+        }
     }
 
 

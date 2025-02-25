@@ -16,6 +16,7 @@
         <Setter Property="Title" Value="Title" />
         <Setter Property="MainBackground" Value="{ThemeResource LayerOnMicaBaseAltFillColorDefault}" />
         <Setter Property="MainForeground" Value="White" />
+        <!--<Setter Property="JsonSource" Value="ms-appx:///Tokenizer/CSharpSyntax.json"/>-->
 
 
 

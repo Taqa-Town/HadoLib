@@ -5,9 +5,16 @@
     <RootNamespace>HadoLib</RootNamespace>
     <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Controls\CodeBlockStyle.xaml" />
+    <None Remove="Tokenizer\CSharpSyntax.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tokenizer\CSharpSyntax.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />

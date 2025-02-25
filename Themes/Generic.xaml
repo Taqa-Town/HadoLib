@@ -2,6 +2,6 @@
 
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Controls/CodeBlockStyle.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Controls/CodeBlockStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
